@@ -1,0 +1,27 @@
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" 
+        aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <ul class="list-group">
+                    <li class="list-group-item"><a 
+                        class="languageMenu
+                        {{#unless hasTranslations}}ui-disabled{{/unless}}">
+                        Language
+                        </a>
+                    </li>
+                    <li class="list-group-item"><a 
+                        class="show-contents
+                        {{#unless showContents}}ui-disabled{{/unless}}">
+                        Contents
+                        </a>
+                    </li>
+                    <li class="list-group-item"><a class="ignore-changes-and-exit">Ignore Changes + Exit</a></li>
+                    <li class="list-group-item"><a class="save-incomplete-and-exit">Save Changes + Exit</a></li>
+                    <li class="list-group-item"><a class="finalize-and-exit">Finalize Changes + Exit</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
