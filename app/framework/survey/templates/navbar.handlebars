@@ -1,21 +1,23 @@
 <div class="odk-screen{{#unless disableSwipeNavigation}}{{#if enableNavigation}}{{#if enableForwardNavigation}} swipeForwardEnabled{{/if}}{{#if enableBackNavigation}} swipeBackEnabled{{/if}}{{/if}}{{/unless}}" >
     {{#if showHeader}}
-        <div class="odk-header">
-            <div class="ui-grid-b my-breakpoint {{#if hideNavigationButtonText}}my-breakpoint-no-nav-btn-text{{/if}}">
-                <div class="ui-block-a">
-                    <button class="odk-options-btn btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+        <div class="odk-header" style="padding-top:10px;padding-bottom:10px;margin-bottom:30px">
+            <div class="row my-breakpoint {{#if hideNavigationButtonText}}my-breakpoint-no-nav-btn-text{{/if}}">
+                <div class="col-xs-6">
+                    <button type="button" class="odk-options-btn btn btn-default btn-lg" data-toggle="modal" data-target="#myModal">
                         {{localize form_title}}
                     </button>
                 </div>
-                <div class="ui-block-b">
-                    <a class="odk-prev-btn
-                    {{#unless enableBackNavigation}}ui-disabled{{/unless}}"
-                    data-role="button" data-icon="carat-l" data-iconpos="left">{{#unless hideNavigationButtonText}}back{{/unless}}</a> 
+                <div class="col-xs-3" style="padding-left:0;padding-right:7">
+                    <a class="odk-prev-btn btn btn-default btn-lg
+                    {{#unless enableBackNavigation}}disabled{{/unless}}" 
+                    role="button" style="width:100%;">
+                    {{#unless hideNavigationButtonText}}<span class="glyphicon glyphicon-chevron-left" style="float:left"></span> back {{/unless}}</a> 
                 </div>
-                <div class="ui-block-c">   
-                    <a class="odk-next-btn
-                    {{#unless enableForwardNavigation}}ui-disabled{{/unless}}"
-                    data-role="button" data-icon="carat-r" data-iconpos="right">{{#unless hideNavigationButtonText}}{{#if showAsContinueButton}}continue{{else}}next{{/if}}{{/unless}}</a>               
+                <div class="col-xs-3" style="padding-left:0;padding-right:15">   
+                    <a class="odk-next-btn btn btn-default btn-lg
+                    {{#unless enableForwardNavigation}}disabled{{/unless}}"
+                    role="button" style="width:100%;">
+                    {{#unless hideNavigationButtonText}}{{#if showAsContinueButton}}continue {{else}}next{{/if}}<span class="glyphicon glyphicon-chevron-right" style="float:right"></span>{{/unless}}</a>               
                 </div>
             </div>
         </div>
