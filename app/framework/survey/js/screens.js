@@ -421,9 +421,9 @@ screenTypes.columns_2 = screenTypes.base.extend({
         var $container = that.$('.odk-container');
 
         // Create columns
-        var grid = $('<div class="ui-grid-a">');
-        var col_a = $('<div class="ui-block-a">');
-        var col_b = $('<div class="ui-block-b">');
+        var grid = $('<div class="row">');
+        var col_a = $('<div class="col-xs-6">');
+        var col_b = $('<div class="col-xs-6">');
 
         $.each(that.activePrompts, function(idx, prompt){
             prompt._render();
