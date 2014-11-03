@@ -27,8 +27,8 @@ h3 {
     padding: 0;
 }
 
-table {
-    max-width: none;
+.table table {
+    table-layout:fixed;
     background-color: transparent;
     border-spacing:0;
     border-color: rgb(131,131,131);
@@ -45,12 +45,12 @@ table {
     border-radius: 4px;
 }
     
-thead {
+.table thead {
     display: table-header-group;
     vertical-align: middle:
 }
     
-tr {
+.table tr {
     display: table-row;
 }
    
@@ -164,7 +164,7 @@ td, th {
     vertical-align: middle !important;
 }
 
-/*.ui-checkbox .ui-btn-inner {
+.ui-checkbox .ui-btn-inner {
     border: none;
 }
     
@@ -181,13 +181,6 @@ td, th {
 .ui-btn-text {
     padding: 0;
 }
-
-.ui-content {
-    padding-left: 0px;
-    padding-right: 3px;
-    overflow: auto;
-}
- */
 
 
 

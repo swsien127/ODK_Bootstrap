@@ -11,8 +11,8 @@
 */
 define(['opendatakit','backbone','jquery','handlebars','screenTypes','text!templates/screenPopup.handlebars', 'text!templates/confirmationPopup.handlebars',
     'text!templates/optionsPopup.handlebars', 'text!templates/languagePopup.handlebars', 'handlebarsHelpers', 'translations'], 
-function(opendatakit,  Backbone,  $,       Handlebars,  screenTypes,  screenPopup,                             confirmationPopup,
-     optionsPopup,                             languagePopup,                            _hh,                 translations) {
+function(opendatakit,  Backbone,  $,       Handlebars,  screenTypes,  screenPopup, confirmationPopup,
+     optionsPopup,                             languagePopup, _hh, translations) {
 verifyLoad('screenManager',
     ['opendatakit','backbone','jquery','handlebars','screenTypes','text!templates/screenPopup.handlebars', 'text!templates/confirmationPopup.handlebars',
     'text!templates/optionsPopup.handlebars', 'text!templates/languagePopup.handlebars' , 'handlebarsHelpers', 'translations'],
@@ -497,13 +497,13 @@ return Backbone.View.extend({
         $( "#confirmationPopup" ).popup( "close" );
     },
     showSpinnerOverlay: function(msg) {
-    //    window.$.mobile.loading( 'show', {
-    //        text: msg.text,
-    //        textVisible: true
-    //    });
+        // window.$.mobile.loading( 'show', {
+            // text: msg.text,
+            // textVisible: true
+        // });
     },
     hideSpinnerOverlay: function() {
-    //    window.$.mobile.loading( 'hide' );
+        // window.$.mobile.loading( 'hide' );
     },
     removePreviousPageEl: function() {
         if( this.previousPageEl){

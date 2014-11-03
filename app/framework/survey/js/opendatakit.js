@@ -6,15 +6,41 @@
  * provide useful parsing or interpretation of localization details.
  *
  */
-define(['mdl','underscore'],function(mdl,_) {
+define(['underscore'],function(_) {
 verifyLoad('opendatakit',
-    ['mdl','underscore'],
-    [ mdl,  _]);
+    ['underscore'],
+    [ _]);
 return {
     initialScreenPath: "initial/0",
     savepoint_type_complete: 'COMPLETE',
     savepoint_type_incomplete: 'INCOMPLETE',
     baseDir: '',
+    /**
+     * Global object that is the container for 
+     * - formDef
+     * - model structure metadata
+     * - instance metadata
+     * - survey instance data
+     *
+     * The data is accessed via the database.js utilities.
+     * Those utilities are responsible for write-through
+     * update of the database.  Data is cached here to 
+     * simplify Javascript user-defined expression coding.
+     * 
+     * The W3C SQLite database has an asynchronous 
+     * interaction model.
+     * 
+     */
+    mdl: {data: {},  // dataTable instance data values: (...)
+        metadata: {}, // dataTable instance Metadata: (_savepoint_timestamp, _savepoint_creator, _savepoint_type, _form_id, _locale)
+        tableMetadata: {}, // table_definitions and key_value_store_active("table","global") values: table_id, tableKey, dbTableName
+        columnMetadata: {},// column_definitions and key_value_store_active("column",elementKey) values: none...
+        dataTableModel: {},// inverted and extended formDef.model for representing data store
+        formDef: null, 
+        formPath: null, 
+        instanceId: null, 
+        table_id: null
+        },
     databaseSettings: null,
     platformInfo: null,
     
@@ -47,6 +73,10 @@ return {
         return this.databaseSettings;
     },
 
+    getProperty:function(propertyId) {
+        return shim.getProperty(propertyId);
+    },
+
     genUUID:function() {
         // construct a UUID (from http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript )
         var id = "uuid:" + 
@@ -62,67 +92,128 @@ return {
             formPath = shim.getBaseUrl() + "/";
         }
         var qpl =
-            '#formPath=' + escape(formPath) +
-            ((instanceId === undefined || instanceId === null) ? '' : ('&instanceId=' + escape(instanceId))) +
-            '&screenPath=' + escape((screenPath === undefined || screenPath === null) ? this.initialScreenPath : screenPath) +
-            ((refId === undefined || refId === null) ? '' : ('&refId=' + escape(refId)));
+            '#formPath=' + encodeURIComponent(formPath) +
+            ((instanceId === undefined || instanceId === null) ? '' : ('&instanceId=' + encodeURIComponent(instanceId))) +
+            '&screenPath=' + encodeURIComponent((screenPath === undefined || screenPath === null) ? this.initialScreenPath : screenPath) +
+            ((refId === undefined || refId === null) ? '' : ('&refId=' + encodeURIComponent(refId)));
         return qpl;
     },
-
     getHashString:function(formPath, instanceId, screenPath) {
         var refId = this.genUUID();
         if ( formPath === undefined || formPath === null ) {
             formPath = shim.getBaseUrl() + "/";
         }
         var qpl =
-            '#formPath=' + escape(formPath) +
-            ((instanceId === undefined || instanceId === null) ? '' : ('&instanceId=' + escape(instanceId))) +
-            '&screenPath=' + escape((screenPath === undefined || screenPath === null) ? this.initialScreenPath : screenPath) +
-            ((refId === undefined || refId === null) ? '' : ('&refId=' + escape(refId)));
+            '#formPath=' + encodeURIComponent(formPath) +
+            ((instanceId === undefined || instanceId === null) ? '' : ('&instanceId=' + encodeURIComponent(instanceId))) +
+            '&screenPath=' + encodeURIComponent((screenPath === undefined || screenPath === null) ? this.initialScreenPath : screenPath) +
+            ((refId === undefined || refId === null) ? '' : ('&refId=' + encodeURIComponent(refId)));
         return qpl;
     },
+    convertHashStringToSurveyUri: function(hashString) {
+        // assume we have a hashString:
+        // #formPath=...&instanceId=...&...
+        // reformat it into a URI suitable for invoking ODK Survey
+        var that = this;
+        shim.log("D","convertHashStringToSurveyUri: hash " + hashString);
+        if ( !hashString.match(/^(\??#).*/) ) {
+            throw new Error('parsing of hashString failed - not a relative path (does not begin with ?# or #');
+        }
+        
+        // we expect it to start with ?# or # 
+        if ( hashString.charAt(0) === '?' ) {
+            hashString = hashString.substring(1);
+        }
+        if ( hashString.charAt(0) === '#' ) {
+            hashString = hashString.substring(1);
+        }
+        var keyValues = hashString.split("&");
+        var reconstitutedKeyValues = "";
+        var formPath = null;
+        var instanceId = null;
+        var i;
+        var parts;
+        for ( i = 0 ; i < keyValues.length ; ++i ) {
+            parts = keyValues[i].split('=');
+            if ( parts.length > 2 ) {
+                throw new Error('parsing of hashString failed - incorrect &key=value sequence');
+            }
+            var key = parts[0];
+            if ( key === 'formPath' ) {
+                formPath = parts[1];
+            } else if ( key === 'instanceId' ) {
+                instanceId = parts[1];
+            } else {
+                reconstitutedKeyValues = reconstitutedKeyValues + 
+                    "&" + keyValues[i];
+            }
+        }
+        if ( instanceId !== null ) {
+            reconstitutedKeyValues = 
+                "&instanceId=" + encodeURIComponent(instanceId) + 
+                reconstitutedKeyValues;
+        }
+        if ( formPath === null ) {
+            throw new Error('parsing of hashString failed - no formPath found');
+        }
+        parts = decodeURIComponent(formPath).split("/");
+        // the formPath ends in a slash, so we want the entry before the last one...
+        var formId = parts[parts.length-2];
+        
+        var appName = that.getPlatformInfo().appName;
+        
+        var uri = "content://org.opendatakit.common.android.provider.forms/" + 
+            this.getPlatformInfo().appName + "/" + formId + "/#" +
+            reconstitutedKeyValues.substring(1);
 
+        shim.log("D","convertHashStringToSurveyUri: as Uri " + uri);
+        return uri;
+    },
     setCurrentFormDef:function(formDef) {
-        mdl.formDef = formDef;
+        this.mdl.formDef = formDef;
     },
     
     getCurrentFormDef:function() {
-        return mdl.formDef;
+        return this.mdl.formDef;
+    },
+    
+    getCurrentModel:function() {
+        return this.mdl;
     },
     
     getQueriesDefinition: function(query_name) {
-        return mdl.formDef.specification.queries[query_name];
+        return this.mdl.formDef.specification.queries[query_name];
     },
     
     getChoicesDefinition: function(choice_list_name) {
-        return mdl.formDef.specification.choices[choice_list_name];
+        return this.mdl.formDef.specification.choices[choice_list_name];
     },
     
     setCurrentFormPath:function(formPath) {
-        mdl.formPath = formPath;
+        this.mdl.formPath = formPath;
     },
     
     getCurrentFormPath:function() {
-        return mdl.formPath;
+        return this.mdl.formPath;
     },
     
     setRefId:function(refId) {
-        mdl.ref_id = refId;
+        this.mdl.ref_id = refId;
     },
     
     getRefId:function() {
-        return mdl.ref_id;
+        return this.mdl.ref_id;
     },
     
     clearLocalInfo:function(type) {
         // wipe the ref_id --
         // this prevents saves into the shim from succeeding...
-        mdl.ref_id = this.genUUID();
+        this.mdl.ref_id = this.genUUID();
         if ( type === "table" ) {
-            mdl.table_id = null;
-            mdl.formPath = null;
+            this.mdl.table_id = null;
+            this.mdl.formPath = null;
         } else if ( type === "form" ) {
-            mdl.formPath = null;
+            this.mdl.formPath = null;
         } else if ( type === "instance" ) {
           // do not alter instance id
           return;
@@ -146,11 +237,11 @@ return {
     },
     
     setCurrentTableId:function(table_id) {
-        mdl.table_id = table_id;
+        this.mdl.table_id = table_id;
     },
     
     getCurrentTableId:function() {
-        return mdl.table_id;
+        return this.mdl.table_id;
     },
     
     getSectionTitle:function(formDef, sectionName) {

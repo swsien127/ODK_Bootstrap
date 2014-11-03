@@ -88,6 +88,10 @@ window.shim = window.shim || {
             }
         }
     },
+    getProperty: function( propertyId ) {
+        this.log("D","shim: DO: getProperty(" + propertyId + ")");
+        return "property-of(" + propertyId + ")";
+    },
     clearInstanceId: function( refId ) {
         if (this.enforceRefIdMatch && refId !== this.refId) {
             this.log("D","shim: IGNORED: clearInstanceId(" + refId + ")");
@@ -468,6 +472,22 @@ window.shim = window.shim || {
             }
             setTimeout(function() {
                 that.log("D","Opened new browser window for Survey content. Close to continue");
+                landing.opendatakitCallback( promptPath, internalPromptContext, action, 
+                    '{ "status": -1, "result": { } }' );
+            }, 1000);
+            return "OK";
+        }
+        if ( action === 'org.opendatakit.survey.android.activities.SplashScreenActivity' ) {
+            value = JSON.parse(jsonObj);
+            if ( window.parent === window ) {
+                // naked
+                window.open(value.extras.url,'_blank', null, false);
+            } else {
+                // inside tab1
+                window.parent.pushPageAndOpen(value.extras.url);
+            }
+            setTimeout(function() {
+                that.log("D","Opened new browser window for link to another ODK Survey page. Close to continue");
                 landing.opendatakitCallback( promptPath, internalPromptContext, action, 
                     '{ "status": -1, "result": { } }' );
             }, 1000);

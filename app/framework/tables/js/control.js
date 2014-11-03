@@ -63,6 +63,32 @@ if (!window.control) {
     // The module object.
     var pub = {};
 
+    pub.addRow = function(tableId, stringified) {
+        var parsed = JSON.parse(stringified);
+        console.log('parsed: ' + parsed);
+
+        console.log(
+                'trying to add to table: ' +
+                tableId +
+                ' data: ' +
+                stringified);
+
+        return true;
+    };
+
+    pub.updateRow = function(tableId, stringified, rowId)  {
+        var parsed = JSON.parse(stringified);
+        console.log('parsed for update: ' + parsed);
+
+        console.log(
+                'trying to update rowId: ' + rowId +
+                ' in table id: ' + tableId +
+                stringified);
+
+        return true;
+    };
+
+
     pub.getPlatformInfo = function() {
         // 9000 b/c that's what grunt is running on. Perhaps should configure
         // this

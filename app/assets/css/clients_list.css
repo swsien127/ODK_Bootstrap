@@ -1,4 +1,4 @@
- body {
+body {
     font-family: arial;
     margin: 0;
     padding: 0;
@@ -9,9 +9,8 @@ h1 {
 } 
 
 #wrapper { 
-    overflow-y: scroll;
-    overflow-x: hidden;
-    margin-top: 190px;
+    overflow: auto;
+    margin-top: 180px;
 }
 
 ul {
@@ -25,6 +24,10 @@ ul {
     font-weight: bold;
     padding: 10px; 
     border-bottom: 1.5px solid #333333;
+}
+
+.item_space:active {
+    background-color: lightskyblue;
 }
 
 .detail {

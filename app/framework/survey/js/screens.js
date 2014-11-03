@@ -352,7 +352,7 @@ screenTypes.waiting = screenTypes.base.extend({
             that.$el.attr('data-theme', that._renderContext.dataTheme);
             that.$el.attr('data-content-theme', that._renderContext.dataTheme);
             that.$el.attr('data-role','page');
-			that.$el.attr('class','odk-page');
+            that.$el.attr('class','odk-page');
         } catch(e) {
             console.error("screens." + that.type + ".render.exception: " +
                             String(e) + ' px: ' + that.promptIdx);
@@ -375,7 +375,7 @@ screenTypes.screen = screenTypes.base.extend({
             that.$el.attr('data-theme', that._renderContext.dataTheme);
             that.$el.attr('data-content-theme', that._renderContext.dataTheme);
             that.$el.attr('data-role','page');
-			that.$el.attr('class','odk-page');
+            that.$el.attr('class','odk-page');
         } catch(e) {
             console.error("screens." + that.type + ".render.exception: " +
                             String(e) + ' px: ' + that.promptIdx);
@@ -411,7 +411,7 @@ screenTypes.columns_2 = screenTypes.base.extend({
             that.$el.attr('data-theme', that._renderContext.dataTheme);
             that.$el.attr('data-content-theme', that._renderContext.dataTheme);
             that.$el.attr('data-role','page');
-			that.$el.attr('class','odk-page');
+            that.$el.attr('class','odk-page');
         } catch(e) {
             console.error("screens." + that.type + ".render.exception: " +
                             String(e) + ' px: ' + that.promptIdx);
@@ -470,7 +470,7 @@ screenTypes.custom = screenTypes.base.extend({
             that.$el.attr('data-theme', that._renderContext.dataTheme);
             that.$el.attr('data-content-theme', that._renderContext.dataTheme);
             that.$el.attr('data-role','page');
-			that.$el.attr('class','odk-page');
+            that.$el.attr('class','odk-page');
         } catch(e) {
             console.error("screens." + that.type + ".render.exception: " +
                             String(e) + ' px: ' + that.promptIdx);

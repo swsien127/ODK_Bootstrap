@@ -21,12 +21,12 @@ requirejs.config({
         handlebars : 'libs/handlebars.1.0.0.rc.4',
         underscore : 'libs/underscore.1.4.4',
         text : 'libs/text.2.0.10',
+        //mobiscroll : 'libs/mobiscroll-2.5.4/js/combined.min',
         // directory paths for resources
         img : 'img',
         templates : 'survey/templates',
         translations : 'translations',
         // top-level objects
-        mdl : 'survey/js/mdl',
         screenTypes : 'survey/js/screenTypes',
         promptTypes : 'survey/js/promptTypes',
         // shim.js -- stub directly loaded
@@ -41,6 +41,7 @@ requirejs.config({
         screenManager : 'survey/js/screenManager',
         parsequery : 'survey/js/parsequery',
         opendatakit : 'survey/js/opendatakit',
+        //jqmConfig : 'survey/js/jqmConfig',
         handlebarsHelpers : 'survey/js/handlebarsHelpers',
         formulaFunctions : 'survey/js/formulaFunctions',
         jqueryCsv : 'libs/jquery-csv/src/jquery.csv',
@@ -114,18 +115,18 @@ require(['jquery'],
             ['jquery'],
             [$]);
 
-        // unwind require then launch the framework...
-        setTimeout( function() {
+  
+        shim.log('I','main.require.jquery.loaded establish mobileinit action');
                 
             // and launch the framework...
-            require(['bootstrap','mdl','opendatakit', 'database','parsequery',
+            require(['bootstrap','opendatakit', 'database','parsequery',
                             'builder', 'controller', 'd3', 'jqueryCsv'], 
-            function( bootstrap,  mdl,  opendatakit,   database,  parsequery,
+            function( bootstrap, opendatakit,   database,  parsequery,
                              builder,   controller, d3, jqueryCsv) {
                 verifyLoad('main.require.framework.loaded',
-                    ['bootstrap','mdl','opendatakit', 'database','parsequery',
+                    ['bootstrap','opendatakit', 'database','parsequery',
                             'builder', 'controller', 'd3', 'jqueryCsv'],
-                    [ bootstrap,  mdl,  opendatakit,   database,  parsequery,
+                    [ bootstrap, opendatakit,   database,  parsequery,
                              builder,   controller, d3, jqueryCsv]);
 
                 
@@ -196,7 +197,6 @@ require(['jquery'],
             }, function(err) {
                 shim.log('E','main.require.framework.errback: ' + err.requireType + ' modules: ' + err.requireModules.toString());
             });
-        }, 0);
 
 }, function(err) {
     shim.log('E','main.require.jquery.errback: ' + err.requireType + ' modules: ' + err.requireModules.toString());

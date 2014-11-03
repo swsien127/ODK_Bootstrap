@@ -12,9 +12,6 @@ if (JSON.parse(control.getPlatformInfo()).container === 'Chrome') {
     });
 }
 
-$(document).ready(setup);
-//handles events from html page
-    
 function setup() {
     displayGroup();
 }
@@ -35,7 +32,7 @@ function displayGroup() {
         
         var srcMimeUri = data.getData(i, 'Image');
         var src = '';
-        if (srcMimeUri !== null ) {
+        if (srcMimeUri !== null && srcMimeUri !== "") {
             var mimeUriObject = JSON.parse(srcMimeUri);
             var uriRelative = mimeUriObject.uriFragment;
             var uriAbsolute = control.getFileAsUrl(uriRelative);
