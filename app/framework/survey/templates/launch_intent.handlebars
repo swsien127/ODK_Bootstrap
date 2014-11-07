@@ -1,15 +1,15 @@
 <div>
     {{> labelHint}}
     {{#if value}}
-        <ul data-role="listview" data-inset="true">
+        <ul class="list-group">
         {{#eachProperty value}}
-            <li>{{property}} : {{value}}</li>
+            <li class="list-group-item">{{property}} : {{value}}</li>
         {{else}}
-            <li>{{value}}</li>
+            <li class="list-group-item">{{value}}</li>
         {{/eachProperty}}
         </ul>
     {{/if}}
-    <button class="launch" {{#unless checked}}
+    <button type="button" class="launch btn btn-default" {{#unless checked}}
                     {{#if display.fontColor.default}}
                         {{#if display.backgroundColor.default}}
                             style="background-color:{{display.backgroundColor.default}};border-color:{{display.backgroundColor.default}};color:{{display.fontColor.default}};text-shadow:0 0px 0 {{display.fontColor.default}};"

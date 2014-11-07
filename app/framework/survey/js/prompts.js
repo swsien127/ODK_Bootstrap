@@ -1312,6 +1312,14 @@ promptTypes.select_one_grid = promptTypes.select_one.extend({
         filteredChoices = _.map(filteredChoices, function(choice, idx) {
             var columns = 3;
             choice.colLetter = String.fromCharCode(97 + (idx % columns));
+            choice.isFirstInRow = false;
+            choice.isLastInRow = false;
+            if (idx % 3 === 0) {
+                choice.isFirstInRow = true;
+            }
+            if (idx % 3 === 2) {
+                choice.isLastInRow = true;
+            }
             return choice;
         });
 
@@ -1363,6 +1371,14 @@ promptTypes.select_multiple_grid = promptTypes.select_multiple.extend({
         filteredChoices = _.map(filteredChoices, function(choice, idx) {
             var columns = 3;
             choice.colLetter = String.fromCharCode(97 + (idx % columns));
+            choice.isFirstInRow = false;
+            choice.isLastInRow = false;
+            if (idx % 3 === 0) {
+                choice.isFirstInRow = true;
+            }
+            if (idx % 3 === 2) {
+                choice.isLastInRow = true;
+            }
             return choice;
         });
 
