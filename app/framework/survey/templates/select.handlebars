@@ -10,118 +10,94 @@
         {{#eachProperty inputAttributes}}
             {{property}}="{{value}}"
         {{/eachProperty}}>
-        <table class="table table-bordered">
-            <tbody>
-                {{#each choices}}
-                    <tr><td class="grid-select-item" style="height:auto;padding-left:15px;"
-                        {{#if checked}}
-                            checked="checked"
-                        {{/if}}>
-                        <div 
-                            {{#if ../select_one}}
-                                class="radio"
+
+        {{#each choices}}
+                <label class="btn btn-default btn-lg" style="width:100%;margin:0;border-radius:0"
+                    {{#unless checked}}
+                        {{#if display.fontColor.default}}
+                            {{#if display.backgroundColor.default}}
+                                style="background-color:{{display.backgroundColor.default}};border-color:{{display.backgroundColor.default}};color:{{display.fontColor.default}};text-shadow:0 0px 0 {{display.fontColor.default}};"
                             {{else}}
-                                class="checkbox"
-                            {{/if}}>
-                            <label
-                                {{#unless checked}}
-                                    {{#if display.fontColor.default}}
-                                        {{#if display.backgroundColor.default}}
-                                            style="background-color:{{display.backgroundColor.default}};border-color:{{display.backgroundColor.default}};color:{{display.fontColor.default}};text-shadow:0 0px 0 {{display.fontColor.default}};"
-                                        {{else}}
-                                            style="color:{{display.fontColor.default}};text-shadow:0 0px 0 {{display.fontColor.default}};"
-                                        {{/if}}
-                                    {{else}}
-                                        {{#if display.backgroundColor.default}} 
-                                            style="background-color:{{display.backgroundColor.default}};border-color:{{display.color}};"
-                                        {{/if}}
-                                    {{/if}}
+                                style="color:{{display.fontColor.default}};text-shadow:0 0px 0 {{display.fontColor.default}};"
+                            {{/if}}
+                        {{else}}
+                            {{#if display.backgroundColor.default}} 
+                                style="background-color:{{display.backgroundColor.default}};border-color:{{display.color}};"
+                            {{/if}}
+                        {{/if}}
+                    {{else}}
+                        {{#if display.fontColor.selected}}
+                            {{#if display.backgroundColor.selected}}
+                                style="background-color:{{display.backgroundColor.selected}};border-color:{{display.backgroundColor.selected}};color:{{display.fontColor.selected}};text-shadow:0 0px 0 {{display.fontColor.selected}};"
+                            {{else}}
+                                {{#if display.backgroundColor.default}}
+                                    style="color:{{display.fontColor.selected}};text-shadow:0 0px 0 {{display.fontColor.selected}};background-color:{{display.backgroundColor.default}};border-color:{{display.backgroundColor.default}};"
                                 {{else}}
-                                    {{#if display.fontColor.selected}}
-                                        {{#if display.backgroundColor.selected}}
-                                            style="background-color:{{display.backgroundColor.selected}};border-color:{{display.backgroundColor.selected}};color:{{display.fontColor.selected}};text-shadow:0 0px 0 {{display.fontColor.selected}};"
-                                        {{else}}
-                                            {{#if display.backgroundColor.default}}
-                                                style="color:{{display.fontColor.selected}};text-shadow:0 0px 0 {{display.fontColor.selected}};background-color:{{display.backgroundColor.default}};border-color:{{display.backgroundColor.default}};"
-                                            {{else}}
-                                                style="color:{{display.fontColor.selected}};text-shadow:0 0px 0 {{display.fontColor.selected}};"
-                                            {{/if}} 
-                                        {{/if}}
-                                    {{else}}
-                                        {{#if display.backgroundColor.selected}}
-                                            {{#if display.fontColor.default}}
-                                                style="background-color:{{display.backgroundColor.selected}};border-color:{{display.backgroundColor.selected}};color:{{display.fontColor.default}};text-shadow:0 0px 0 {{display.fontColor.default}};"
-                                            {{else}}
-                                                style="background-color:{{display.backgroundColor.selected}};border-color:{{display.backgroundColor.selected}};"
-                                            {{/if}}
-                                        {{/if}}
-                                    {{/if}}
-                                {{/unless}}>
-                                <input style="transform:scale(2); -webkit-transform:scale(1.5);width:auto"
-                                    {{#if ../select_one}}
-                                        type="radio"
-                                    {{else}}
-                                        type="checkbox"
-                                    {{/if}}
-                                    {{#if checked}}
-                                        checked="checked"
-                                    {{/if}}
-                                        
-                                    {{! the name attribute has to be the same for all the options}}
-                                    name="{{../name}}"
-                                    id="{{data_value}}"
-                                    value="{{data_value}}" 
-                                />
-                            {{#if display.image}}
-                                <div>
-                                    <img src="{{formDirectory}}{{localize display.image}}"></img>
-                                </div>
+                                    style="color:{{display.fontColor.selected}};text-shadow:0 0px 0 {{display.fontColor.selected}};"
+                                {{/if}} 
                             {{/if}}
-                            {{#if display.text}}
-                                {{{localize display.text}}}
+                        {{else}}
+                            {{#if display.backgroundColor.selected}}
+                                {{#if display.fontColor.default}}
+                                    style="background-color:{{display.backgroundColor.selected}};border-color:{{display.backgroundColor.selected}};color:{{display.fontColor.default}};text-shadow:0 0px 0 {{display.fontColor.default}};"
+                                {{else}}
+                                    style="background-color:{{display.backgroundColor.selected}};border-color:{{display.backgroundColor.selected}};"
+                                {{/if}}
                             {{/if}}
-                            </label>
-                        </div>
-                    </td></tr>
-                {{/each}}
-                {{#if withOther}}
-                    <tr><td class="grid-select-item" style="height:auto;padding-left:15px;"
+                        {{/if}}
+                    {{/unless}}>
+                    
+                    <input style="transform:scale(2); -webkit-transform:scale(1.5);width:auto;float:left"
+                        {{#if ../select_one}}
+                            type="radio"
+                        {{else}}
+                            type="checkbox"
+                        {{/if}}
                         {{#if checked}}
                             checked="checked"
-                        {{/if}}>
-                        <div 
-                            {{#if ../select_one}}
-                                class="radio"
-                            {{else}}
-                                class="checkbox"
-                            {{/if}}>
-                    <label>
-                        <input style="transform:scale(2); -webkit-transform:scale(1.5);width:auto"
-                            {{#if select_one}}
-                                type="radio"
-                            {{else}}
-                                type="checkbox"
-                            {{/if}}
-                            {{#if other.checked}}
-                                checked="checked"
-                            {{/if}}
-                            name="{{name}}"
-                            id="other"
-                            value="other"/>
-                            <label for="other">
-                                Other:
-                                {{#if other.checked}}
-                                <input
-                                    name="otherValue"
-                                    value="{{other.value}}"
-                                    style="height:36px;position:initial;"/>
-                                {{/if}}
-                            </label>
-                    </label>
-                    </td></tr>
+                        {{/if}}
+                            
+                        {{! the name attribute has to be the same for all the options}}
+                        name="{{../name}}"
+                        id="{{data_value}}"
+                        value="{{data_value}}" 
+                    />
+                {{#if display.image}}
+                    <div>
+                        <img src="{{formDirectory}}{{localize display.image}}"></img>
+                    </div>
                 {{/if}}
-            </tbody>
-        </table>
+                {{#if display.text}}
+                    <span style="float:left;margin-left:10px">{{{localize display.text}}}</span>
+                {{/if}}
+                </label>
+            
+        {{/each}}
+        {{#if withOther}}
+            <label class="btn btn-default btn-lg" style="width:100%;margin:0;border-radius:0">
+                <input style="transform:scale(2); -webkit-transform:scale(1.5);width:auto;float:left"
+                    {{#if select_one}}
+                        type="radio"
+                    {{else}}
+                        type="checkbox"
+                    {{/if}}
+                    {{#if other.checked}}
+                        checked="checked"
+                    {{/if}}
+                    name="{{name}}"
+                    id="other"
+                    value="other"/>
+                    <label for="other" style="float:left">
+                        <span style="float:left;margin-left:10px">Other:</span>
+                        {{#if other.checked}}
+                        <input
+                            name="otherValue"
+                            value="{{other.value}}"
+                            style="height:36px;position:initial;"/>
+                        {{/if}}
+                    </label>
+            </label>
+        {{/if}}
     </fieldset>
     {{#unless required}}
         {{#if false}}
