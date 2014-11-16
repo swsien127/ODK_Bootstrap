@@ -3,11 +3,11 @@
 /**
  * All  the standard prompts available to a form designer.
  */
-define(['database','opendatakit','controller','backbone','formulaFunctions','handlebars','promptTypes','jquery','underscore', 'translations', 'handlebarsHelpers'],
-function(database,  opendatakit,  controller,  Backbone,  formulaFunctions,  Handlebars,  promptTypes,  $,       _,            translations, _hh) {
+define(['database','opendatakit','controller','backbone','formulaFunctions','handlebars','promptTypes','jquery','underscore', 'datetimepicker','translations', 'handlebarsHelpers'],
+function(database,  opendatakit,  controller,  Backbone,  formulaFunctions,  Handlebars,  promptTypes,  $,       _,            datetimepicker,  translations,   _hh) {
 verifyLoad('prompts',
-    ['database','opendatakit','controller','backbone','formulaFunctions','handlebars','promptTypes','jquery','underscore',  'translations', 'handlebarsHelpers'],
-    [ database,  opendatakit,  controller,  Backbone,  formulaFunctions,  Handlebars,  promptTypes,  $,       _,             translations, _hh]);
+    ['database','opendatakit','controller','backbone','formulaFunctions','handlebars','promptTypes','jquery','underscore','datetimepicker','translations', 'handlebarsHelpers'],
+    [ database,  opendatakit,  controller,  Backbone,  formulaFunctions,  Handlebars,  promptTypes,  $,       _,           datetimepicker,  translations,   _hh]);
 
 promptTypes.base = Backbone.View.extend({
     className: "odk-base",
@@ -1611,8 +1611,8 @@ promptTypes.datetime = promptTypes.input_type.extend({
     modification: function(evt) {
         var that = this;
         if ( !that.insideAfterRender ) {
-            var value = that.$('input').mobiscroll('getDate');
-            var ref = that.getValue();
+            var value = that.$('input').mobiscroll('getDate');    // value gets the just modified new date
+            var ref = that.getValue();                            // ref gets the old date that was saved in the database
             var rerender = ((ref == null || value == null) && (ref != value )) ||
                     (ref != null && value != null && ref.valueOf() != value.valueOf());
             var ctxt = that.controller.newContext(evt);
@@ -1621,10 +1621,10 @@ promptTypes.datetime = promptTypes.input_type.extend({
             if ( value === undefined || value === null ) {
                 renderContext.value = '';
             } else {
-                renderContext.value = that.$('input').val();
+                renderContext.value = that.$('input').val();        // input's new value is stored
             }
             // track original value
-            var originalValue = that.getValue();
+            var originalValue = that.getValue();    // old value
             that.setValueDeferredChange(value);
             renderContext.invalid = !that.validateValue();
             if ( renderContext.invalid ) {
@@ -1633,7 +1633,7 @@ promptTypes.datetime = promptTypes.input_type.extend({
                 that.setValueDeferredChange(originalValue);
                 rerender = true;
             }
-            renderContext.value = value;
+            renderContext.value = value;    // new date
             if ( rerender ) {
                 that.reRender(ctxt);
             } else {
@@ -1646,12 +1646,12 @@ promptTypes.datetime = promptTypes.input_type.extend({
         var that = this;
         if(this.useMobiscroll){
             that.$('input').mobiscroll()[that.scrollerAttributes.preset](that.scrollerAttributes);
-            var value = that.getValue();
+            var value = that.getValue();        // new date that is now saved in database
             that.insideAfterRender = true;
             if ( value === undefined || value === null ) {
-                that.$('input').mobiscroll('setDate',new Date(),false);
+                that.$('input').mobiscroll('setDate',new Date(),false);     // if starting new (w/o saved date), scroll displays current date  
             } else {
-                that.$('input').mobiscroll('setDate',value, true);
+                that.$('input').mobiscroll('setDate',value, true);      //set the new date in the scroll
             }
             that.insideAfterRender = false;
         }
@@ -1691,11 +1691,11 @@ promptTypes.time = promptTypes.datetime.extend({
                     (ref != null && value != null && that.sameTime(ref,value));
             var ctxt = that.controller.newContext(evt);
             ctxt.log('D',"prompts." + that.type + ".modification", "px: " + that.promptIdx);
-            var renderContext = that.renderContext;
+            var renderContext = that.renderContext;     // all the values in the excel file
             if ( value === undefined || value === null ) {
                 renderContext.value = '';
             } else {
-                renderContext.value = that.$('input').val();
+                renderContext.value = that.$('input').val();  // the date I inputted
             }
             // track original value
             var originalValue = that.getValue();

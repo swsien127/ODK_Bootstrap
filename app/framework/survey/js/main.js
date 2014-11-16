@@ -17,6 +17,7 @@ requirejs.config({
         // third-party libraries we depend upon 
         jquery : 'libs/jquery.1.10.2',
         bootstrap : 'libs/bootstrap-3.1.1-dist/js/bootstrap.min',
+        datetimepicker : 'libs/DateTimePicker-dist/DateTimePicker.min',
         backbone : 'libs/backbone.1.0.0',
         handlebars : 'libs/handlebars.1.0.0.rc.4',
         underscore : 'libs/underscore.1.4.4',
@@ -50,6 +51,10 @@ requirejs.config({
     },
     shim: {
         'bootstrap': {
+            deps: ['jquery'],
+            exports: '$.fn'
+        },
+        'datetimepicker': {
             deps: ['jquery'],
             exports: '$.fn'
         },
