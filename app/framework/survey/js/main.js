@@ -18,9 +18,7 @@ requirejs.config({
         jquery : 'libs/jquery.1.10.2',
         bootstrap : 'libs/bootstrap-3.1.1-dist/js/bootstrap.min',
         moment : 'libs/eonasdan/moment.min', 
-        //datetimepicker : 'libs/DateTimePicker-dist/DateTimePicker.min',                               // curious solutions
-        //datetimepicker : 'libs/bootstrap-datetimepicker-0.0.11/js/bootstrap-datetimepicker.min',      // tarruda
-        datetimepicker : 'libs/eonasdan/bootstrap-datetimepicker',                                      //eonasdan
+        datetimepicker : 'libs/DateTimePicker-dist/DateTimePicker.min',                              
         backbone : 'libs/backbone.1.0.0',
         handlebars : 'libs/handlebars.1.0.0.rc.4',
         underscore : 'libs/underscore.1.4.4',
@@ -57,21 +55,10 @@ requirejs.config({
             deps: ['jquery'],
             exports: '$.fn'
         },
-        // 'datetimepicker': {                      // curious solutions
-            // deps: ['jquery', 'bootstrap'],
-            // exports: '$.fn.DateTimePicker'
-        // },
-        // 'datetimepicker': {                      // tarruda
-            // deps: ['jquery', 'bootstrap'],
-            // exports: '$.fn.datetimepicker'
-        // },
-        'moment': {                             
-            deps: [],
-        },
-        'datetimepicker': {                         // eonasdan
-            deps: ['jquery', 'bootstrap', 'moment'],
-            exports: '$.fn.datetimepicker'
-        },
+        'datetimepicker': {                      
+            deps: ['jquery', 'bootstrap'],
+            exports: '$.fn.DateTimePicker'
+        }
         'underscore': {
             //These script dependencies should be loaded before loading
             //underscore.js
@@ -138,14 +125,14 @@ require(['jquery'],
         shim.log('I','main.require.jquery.loaded establish mobileinit action');
                 
             // and launch the framework...
-            require(['bootstrap', 'moment', 'datetimepicker', 'opendatakit', 'database','parsequery',
+            require(['bootstrap', 'datetimepicker', 'opendatakit', 'database','parsequery',
                             'builder', 'controller', 'd3', 'jqueryCsv'], 
-            function( bootstrap,   moment,   datetimepicker,   opendatakit,   database,  parsequery,
+            function( bootstrap,   datetimepicker,   opendatakit,   database,  parsequery,
                              builder,   controller, d3, jqueryCsv) {
                 verifyLoad('main.require.framework.loaded',
-                    ['bootstrap', 'moment', 'datetimepicker', 'opendatakit', 'database','parsequery',
+                    ['bootstrap', 'datetimepicker', 'opendatakit', 'database','parsequery',
                             'builder', 'controller', 'd3', 'jqueryCsv'],
-                    [ bootstrap,   moment,   datetimepicker,   opendatakit,   database,  parsequery,
+                    [ bootstrap,   datetimepicker,   opendatakit,   database,  parsequery,
                              builder,   controller, d3, jqueryCsv]);
 
                 

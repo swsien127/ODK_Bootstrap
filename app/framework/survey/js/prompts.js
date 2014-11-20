@@ -1544,7 +1544,7 @@ promptTypes.decimal = promptTypes.input_type.extend({
 });
 promptTypes.datetime = promptTypes.input_type.extend({
     type: "datetime",
-    templatePath: "templates/datetimepicker.handlebars",
+    //templatePath: "templates/datetimepicker.handlebars",  //TODO make template
     usePicker: false,
     insideAfterRender: false,
     pickAttributes: {       // used to disable timepicker or datepicker
