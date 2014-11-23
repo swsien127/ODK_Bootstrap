@@ -1,8 +1,8 @@
 <form role="form">
 <div class="form-group">
-    <label for="slider-{{promptId}}">{{> labelHint}}</label>
-    <div class="input-container">{{! used to prevent swiping on sliders}}
-        <input id="slider-{{promptId}}" 
+    <div class="container">
+        <label for="picker-{{promptId}}">{{> labelHint}}</label>
+        <input id="picker-{{promptId}}" 
             class="form-control"
             name="{{name}}"
             value="{{value}}"
@@ -14,8 +14,7 @@
                 style="background-color:lightgray;"
                 disabled="true"
             {{/if}}
-            readonly />
+        />
     </div>
-    <div id="dtBox"></div>
 </div>
 </form>

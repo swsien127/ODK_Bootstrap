@@ -1544,13 +1544,9 @@ promptTypes.decimal = promptTypes.input_type.extend({
 });
 promptTypes.datetime = promptTypes.input_type.extend({
     type: "datetime",
-    //templatePath: "templates/datetimepicker.handlebars",  //TODO make template
-    usePicker: false,
+    templatePath: "templates/datetimepicker.handlebars",  //TODO make template
+    usePicker: true,
     insideAfterRender: false,
-    pickAttributes: {       // used to disable timepicker or datepicker
-        pickDate: true,
-        pickTime: true
-    },
     /* scrollerAttributes: {
         preset: 'datetime',
         theme: 'jqm',
@@ -1616,7 +1612,7 @@ promptTypes.datetime = promptTypes.input_type.extend({
     modification: function(evt) {
         var that = this;
         if ( !that.insideAfterRender ) {
-            var value = that.$('input').datetimepicker('getDate');  
+            var value = that.$('input').datetimepicker('getDate'); 
             var ref = that.getValue();  
             var rerender = ((ref == null || value == null) && (ref != value )) ||
                     (ref != null && value != null && ref.valueOf() != value.valueOf());
@@ -1658,7 +1654,7 @@ promptTypes.datetime = promptTypes.input_type.extend({
                 that.$('input').mobiscroll('setDate',value, true); 
             }
             that.insideAfterRender = false; */
-            that.$('#dtBox').DateTimePicker();
+            that.$('input').datetimepicker();
             var value = that.getValue();      
             that.insideAfterRender = true;
             if ( value === undefined || value === null ) {
@@ -1675,7 +1671,21 @@ promptTypes.datetime = promptTypes.input_type.extend({
     }
 });
 promptTypes.date = promptTypes.datetime.extend({
-    type: "date"
+    type: "date",
+    afterRender: function() {
+        var that = this;
+        if(this.usePicker){
+            that.$('input').datetimepicker({pickTime: false});
+            var value = that.getValue();
+            that.insideAfterRender = true;
+            if ( value === undefined || value === null ) {
+                that.$('input').datetimepicker('setDate', new Date());
+            } else {
+                that.$('input').datetimepicker('setDate', value);
+            }
+            that.insideAfterRender = false;
+        }
+    }
 });
 promptTypes.time = promptTypes.datetime.extend({
     type: "time",
@@ -1726,7 +1736,7 @@ promptTypes.time = promptTypes.datetime.extend({
     afterRender: function() {
         var that = this;
         if(this.usePicker){
-            that.$('#dtBox').DateTimePicker();
+            that.$('input').datetimepicker({pickDate: false});
             var value = that.getValue();      
             that.insideAfterRender = true;
             if ( value === undefined || value === null ) {

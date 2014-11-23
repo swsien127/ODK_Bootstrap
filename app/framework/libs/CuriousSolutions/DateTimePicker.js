@@ -61,7 +61,8 @@
 			
 			parentElement: null,
 		
-			addEventHandlers: null
+			addEventHandlers: null,
+			initialized: null
 		};
 	
 		var dataObject = {
@@ -78,7 +79,7 @@
 			sDateFormat: "",
 			sTimeFormat: "",
 			sDateTimeFormat: "",
-		
+				
 			dMinValue: null,
 			dMaxValue: null,
 		
@@ -128,6 +129,66 @@
 					$(dtPickerObj.element).addClass("dtpicker-mobile");
 				}
 				dtPickerObj._addEventHandlersForInput();
+				
+				if(dtPickerObj.settings.initialized)
+				{
+					dtPickerObj.settings.initialized.call(dtPickerObj);
+				}
+			},
+		
+			setDateTime: function(oInputElement, dDateTime)
+			{
+				var dtPickerObj = this;
+			
+				dtPickerObj.settings.mode = $(oInputElement).data("field");
+				var sFormat = $(oInputElement).data("format") || "";
+				if(sFormat != "")
+				{
+					if(dtPickerObj._compare(dtPickerObj.settings.mode, "date"))
+						dtPickerObj.dataObject.sDateFormat = sFormat;
+					else if(dtPickerObj._compare(dtPickerObj.settings.mode, "time"))
+						dtPickerObj.dataObject.sTimeFormat = sFormat;
+					else if(dtPickerObj._compare(dtPickerObj.settings.mode, "datetime"))
+						dtPickerObj.dataObject.sDateTimeFormat = sFormat;
+				}					
+				dtPickerObj.dataObject.dCurrentDate = dDateTime;
+				//dtPickerObj.dataObject.oInputElement = oInputElement;
+				var sElemValue = dtPickerObj._setOutput();
+				var $oElem = $(oInputElement);
+				if(dtPickerObj._compare($oElem.prop("tagName"), "INPUT"))
+					$oElem.val(sElemValue);
+				else
+					$oElem.html(sElemValue);
+					
+				$oElem.change();
+			},
+		
+			getDateTime: function(oInputElement)
+			{
+				var dtPickerObj = this;
+				var sCurrent = dtPickerObj._getValueOfElement(oInputElement);				
+				var dCurrentDate;
+				
+				if(sCurrent == "" || sCurrent == null || sCurrent == undefined)
+					dCurrentDate = new Date();
+				else
+				{
+					if(dtPickerObj._compare(dtPickerObj.settings.mode, "date"))
+					{
+						dtPickerObj.dataObject.dCurrentDate = dtPickerObj._parseDate(sCurrent);
+						dtPickerObj.dataObject.dCurrentDate.setHours(0);
+						dtPickerObj.dataObject.dCurrentDate.setMinutes(0);
+						dtPickerObj.dataObject.dCurrentDate.setSeconds(0);
+					}
+					else if(dtPickerObj._compare(dtPickerObj.settings.mode, "time"))
+						dtPickerObj.dataObject.dCurrentDate = dtPickerObj._parseTime(sCurrent);
+					else if(dtPickerObj._compare(dtPickerObj.settings.mode, "datetime"))
+						dtPickerObj.dataObject.dCurrentDate = dtPickerObj._parseDateTime(sCurrent);
+					
+					dCurrentDate = dtPickerObj.dataObject.dCurrentDate;
+				}
+			
+				return dCurrentDate;
 			},
 		
 			_setDateFormatArray: function()
@@ -152,6 +213,8 @@
 				// "dd-MMM-yyyy"
 				sDate = "dd" + dtPickerObj.settings.dateSeparator + "MMM" + dtPickerObj.settings.dateSeparator + "yyyy";
 				dtPickerObj.dataObject.sArrInputDateFormats.push(sDate);
+				
+				dtPickerObj.dataObject.sDateFormat = dtPickerObj.settings.dateFormat;
 			},
 		
 			_setTimeFormatArray: function()
@@ -168,6 +231,8 @@
 				//  "HH:mm"
 				sTime = "HH" + dtPickerObj.settings.timeSeparator + "mm";
 				dtPickerObj.dataObject.sArrInputTimeFormats.push(sTime);
+				
+				dtPickerObj.dataObject.sTimeFormat = dtPickerObj.settings.timeFormat;
 			},
 		
 			_setDateTimeFormatArray: function()
@@ -224,6 +289,8 @@
 				sTime = "hh" + dtPickerObj.settings.timeSeparator + "mm" + dtPickerObj.settings.timeSeparator + "ss" + dtPickerObj.settings.timeMeridiemSeparator + "AA";
 				sDateTime = sDate + dtPickerObj.settings.dateTimeSeparator + sTime;
 				dtPickerObj.dataObject.sArrInputDateTimeFormats.push(sDateTime);
+				
+				dtPickerObj.dataObject.sDateTimeFormat = dtPickerObj.settings.dateTimeFormat;
 			},
 		
 			_createPicker: function()
@@ -316,7 +383,7 @@
 				if(dtPickerObj.dataObject.oInputElement == null)
 				{
 					dtPickerObj.dataObject.oInputElement = element;
-				
+									
 					var sMode = $(element).data("field") || "";
 					var sMinValue = $(element).data("min") || "";
 					var sMaxValue = $(element).data("max") || "";
@@ -364,7 +431,6 @@
 			_setOutput: function()
 			{
 				var dtPickerObj = this;
-			
 				var sOutput = "";
 			
 				var iDate = dtPickerObj.dataObject.dCurrentDate.getDate();
@@ -700,7 +766,7 @@
 					dtPickerObj._compare(dtPickerObj.dataObject.sDateTimeFormat, dtPickerObj.dataObject.sArrInputDateTimeFormats[7]);
 					dtPickerObj.dataObject.dCurrentDate = dtPickerObj._parseDateTime(sCurrent);
 				}
-			
+						
 				dtPickerObj._setVariablesForDate();
 				dtPickerObj._modifyPicker();
 				$(dtPickerObj.element).fadeIn(dtPickerObj.settings.animationDuration);

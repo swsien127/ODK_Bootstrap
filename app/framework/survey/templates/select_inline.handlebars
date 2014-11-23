@@ -15,40 +15,40 @@
         >
         <div class="btn-group" data-toggle="buttons">
             {{#each choices}}
-                <label class="btn btn-default btn-lg {{#if checked}}active{{/if}}">
+                <label class="btn btn-default btn-lg {{#if checked}}active{{/if}}"
                     {{#unless checked}}
-                        {{#if display.fontColor.default}}
-                            {{#if display.backgroundColor.default}}
-                                style="background-color:{{display.backgroundColor.default}};border-color:{{display.backgroundColor.default}};color:{{display.fontColor.default}};text-shadow:0 0px 0 {{display.fontColor.default}};"
-                            {{else}}
-                                style="color:{{display.fontColor.default}};text-shadow:0 0px 0 {{display.fontColor.default}};"
-                            {{/if}}
+                    {{#if display.fontColor.default}}
+                        {{#if display.backgroundColor.default}}
+                            style="background-color:{{display.backgroundColor.default}};border-color:{{display.backgroundColor.default}};color:{{display.fontColor.default}};text-shadow:0 0px 0 {{display.fontColor.default}};"
                         {{else}}
-                            {{#if display.backgroundColor.default}} 
-                                style="background-color:{{display.backgroundColor.default}};border-color:{{display.color}};"
-                            {{/if}}
+                            style="color:{{display.fontColor.default}};text-shadow:0 0px 0 {{display.fontColor.default}};"
                         {{/if}}
                     {{else}}
-                        {{#if display.fontColor.selected}}
-                            {{#if display.backgroundColor.selected}}
-                                style="background-color:{{display.backgroundColor.selected}};border-color:{{display.backgroundColor.selected}};color:{{display.fontColor.selected}};text-shadow:0 0px 0 {{display.fontColor.selected}};"
-                            {{else}}
-                                {{#if display.backgroundColor.default}}
-                                    style="color:{{display.fontColor.selected}};text-shadow:0 0px 0 {{display.fontColor.selected}};background-color:{{display.backgroundColor.default}};border-color:{{display.backgroundColor.default}};"
-                                {{else}}
-                                    style="color:{{display.fontColor.selected}};text-shadow:0 0px 0 {{display.fontColor.selected}};"
-                                {{/if}} 
-                            {{/if}}
+                        {{#if display.backgroundColor.default}} 
+                            style="background-color:{{display.backgroundColor.default}};border-color:{{display.color}};"
+                        {{/if}}
+                    {{/if}}
+                {{else}}
+                    {{#if display.fontColor.selected}}
+                        {{#if display.backgroundColor.selected}}
+                            style="background-color:{{display.backgroundColor.selected}};border-color:{{display.backgroundColor.selected}};color:{{display.fontColor.selected}};text-shadow:0 0px 0 {{display.fontColor.selected}};"
                         {{else}}
-                            {{#if display.backgroundColor.selected}}
-                                {{#if display.fontColor.default}}
-                                    style="background-color:{{display.backgroundColor.selected}};border-color:{{display.backgroundColor.selected}};color:{{display.fontColor.default}};text-shadow:0 0px 0 {{display.fontColor.default}};"
-                                {{else}}
-                                    style="background-color:{{display.backgroundColor.selected}};border-color:{{display.backgroundColor.selected}};"
-                                {{/if}}
+                            {{#if display.backgroundColor.default}}
+                                style="color:{{display.fontColor.selected}};text-shadow:0 0px 0 {{display.fontColor.selected}};background-color:{{display.backgroundColor.default}};border-color:{{display.backgroundColor.default}};"
+                            {{else}}
+                                style="color:{{display.fontColor.selected}};text-shadow:0 0px 0 {{display.fontColor.selected}};"
+                            {{/if}} 
+                        {{/if}}
+                    {{else}}
+                        {{#if display.backgroundColor.selected}}
+                            {{#if display.fontColor.default}}
+                                style="background-color:{{display.backgroundColor.selected}};border-color:{{display.backgroundColor.selected}};color:{{display.fontColor.default}};text-shadow:0 0px 0 {{display.fontColor.default}};"
+                            {{else}}
+                                style="background-color:{{display.backgroundColor.selected}};border-color:{{display.backgroundColor.selected}};"
                             {{/if}}
                         {{/if}}
-                    {{/unless}}
+                    {{/if}}
+                {{/unless}}>
                     
                     <input
                         {{#if ../select_one}}
