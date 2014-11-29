@@ -435,8 +435,8 @@ return Backbone.View.extend({
         var rc = (that.activeScreen && that.activeScreen._renderContext) ?
             that.activeScreen._renderContext : that.renderContext;
         that.activeScreen.$el.append(that.languageTemplate(rc)).trigger('pagecreate');
-        $('#languagePopup').enhanceWithin().popup();
-        $( "#languagePopup" ).popup( "open" );
+        $('#languagePopup').enhanceWithin().popup(); 
+        $( "#languagePopup" ).popup( "open" );        
     },
     setLanguage: function(evt) {
         var that = this;
@@ -461,12 +461,12 @@ return Backbone.View.extend({
             that.activeScreen._renderContext : that.renderContext;
         var rcWithMsg = $.extend({message: msg.message}, rc);
         that.activeScreen.$el.append(that.screenTemplate(rcWithMsg)).trigger('pagecreate');
-        var $screenPopup = $( "#screenPopup" );
-        $('#screenPopup').enhanceWithin().popup();
-        $screenPopup.popup( "open" );
+        //var $screenPopup = $( "#screenPopup" );
+        //$('#screenPopup').enhanceWithin().popup();  // calling the popup plugin
+        //$screenPopup.popup( "open" );       // opening the popup
     },
     closeScreenPopup: function() {
-        $( "#screenPopup" ).popup( "close" );
+        $( "#screenPopup" ).alert( 'close' );   // closing the popup
     },
     showConfirmationPopup: function(msg) {
         var that = this;

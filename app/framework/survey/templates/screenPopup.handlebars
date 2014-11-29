@@ -1,4 +1,7 @@
-<div data-role="popup" data-theme="b" data-overlay-theme="a" id="screenPopup" data-dismissible="false">
-	<h3>{{{localize message}}}</h3>
-	<button data-theme="b" id="ok-btn">OK</button>
+<div class="alert alert-dismissable" id="screenPopup"
+    style="background-color:black;color:white;font-weight:bold;margin-left:20px;margin-right:20px;padding:0;padding-right:0;display:inline-block;">
+    <h3 style="margin:15px">{{{localize message}}}</h3>
+    <button type="button" class="close" data-dismiss="alert" style="top:0;right:0;padding:20px;color:white;background-color:darkgray">
+      OK
+    </button>
 </div>
