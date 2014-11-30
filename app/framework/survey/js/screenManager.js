@@ -485,18 +485,19 @@ return Backbone.View.extend({
         var rcWithMsg = $.extend({message: msg.message}, rc);
         that.activeScreen.$el.append(that.confirmationTemplate(rcWithMsg)).trigger('pagecreate');
         var $confirmationPopup = $( "#confirmationPopup" );
-        $('#confirmationPopup').enhanceWithin().popup();
-        $confirmationPopup.popup( "open" );
+        //$('#confirmationPopup').enhanceWithin().popup();
+        //$confirmationPopup.popup( "open" );
+        $confirmationPopup.modal();
     },
     handleConfirmation: function() {
         var that = this;
         if ( that.activeScreen != null ) {
             that.activeScreen.handleConfirmation(that.promptIndex);
         }
-        $( "#confirmationPopup" ).popup( "close" );
+        $( "#confirmationPopup" ).modal( "hide" );
     },
     closeConfirmationPopup: function() {
-        $( "#confirmationPopup" ).popup( "close" );
+        $( "#confirmationPopup" ).modal( "hide" );
     },
     showSpinnerOverlay: function(msg) {
         // window.$.mobile.loading( 'show', {
