@@ -374,7 +374,7 @@ return Backbone.View.extend({
         evt.preventDefault();
     },
     ignoreChanges: function(evt) {
-        $( "#optionsPopup" ).popup( "close" );
+        $( "#optionsPopup" ).modal( "hide" );
         evt.stopPropagation();
         evt.stopImmediatePropagation();
         var that = this;
@@ -386,7 +386,7 @@ return Backbone.View.extend({
             }}));
     },
     saveChanges: function(evt) {
-        $( "#optionsPopup" ).popup( "close" );
+        $( "#optionsPopup" ).modal( "hide" );
         evt.stopPropagation();
         evt.stopImmediatePropagation();
         var that = this;
@@ -398,7 +398,7 @@ return Backbone.View.extend({
             }}), false);
     },
     finalizeChanges: function(evt) {
-        $( "#optionsPopup" ).popup( "close" );
+        $( "#optionsPopup" ).modal( "hide" );
         evt.stopPropagation();
         evt.stopImmediatePropagation();
         var that = this;
@@ -419,12 +419,13 @@ return Backbone.View.extend({
         var rc = (that.activeScreen && that.activeScreen._renderContext) ?
             that.activeScreen._renderContext : that.renderContext;
         that.activeScreen.$el.append(that.optionsTemplate(rc)).trigger('pagecreate');
-         //$('#optionsPopup').enhanceWithin().popup();
+        //$('#optionsPopup').enhanceWithin().popup();
         //$( "#optionsPopup" ).popup( "open" );
+        $( "#optionsPopup" ).modal();
     },
     openLanguagePopup: function(evt) {
         var that = this;
-        $( "#optionsPopup" ).popup( "close" );
+        $( "#optionsPopup" ).modal( "hide" );
         var $contentArea = $('#languagePopup');
         $contentArea.empty().remove();
         if ( that.activeScreen == null ) {
