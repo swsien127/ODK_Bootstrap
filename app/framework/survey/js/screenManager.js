@@ -436,8 +436,9 @@ return Backbone.View.extend({
         var rc = (that.activeScreen && that.activeScreen._renderContext) ?
             that.activeScreen._renderContext : that.renderContext;
         that.activeScreen.$el.append(that.languageTemplate(rc)).trigger('pagecreate');
-        $('#languagePopup').enhanceWithin().popup(); 
-        $( "#languagePopup" ).popup( "open" );        
+        //$('#languagePopup').enhanceWithin().popup(); 
+        //$( "#languagePopup" ).popup( "open" );
+        $( "#languagePopup" ).modal();
     },
     setLanguage: function(evt) {
         var that = this;
@@ -446,7 +447,7 @@ return Backbone.View.extend({
             ((that.activeScreen != null) ? ("px: " + that.activeScreen.promptIdx) : "no current activeScreen"));
         //Closing popups is important,
         //they will not open in the future if one is not closed.
-        $( "#languagePopup" ).popup( "close" );
+        $( "#languagePopup" ).modal( "hide" );
         this.controller.setLocale(ctxt, $(evt.target).attr("id"));
     },
     showScreenPopup: function(msg) {
