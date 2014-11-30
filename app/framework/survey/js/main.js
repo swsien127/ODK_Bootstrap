@@ -17,9 +17,9 @@ requirejs.config({
         // third-party libraries we depend upon 
         jquery : 'libs/jquery.1.10.2',
         bootstrap : 'libs/bootstrap-3.1.1-dist/js/bootstrap.min',
-        moment : 'libs/eonasdan/moment.min', 
-        //datetimepicker : 'libs/CuriousSolutions/DateTimePicker.min',      
+        moment : 'libs/eonasdan/moment.min',     
         datetimepicker : 'libs/eonasdan/bootstrap-datetimepicker',
+        spinner : 'libs/spinner/waitMe.min',
         backbone : 'libs/backbone.1.0.0',
         handlebars : 'libs/handlebars.1.0.0.rc.4',
         underscore : 'libs/underscore.1.4.4',
@@ -62,6 +62,10 @@ requirejs.config({
         'datetimepicker': {                      
             deps: ['jquery', 'bootstrap', 'moment'],
             exports: '$.fn.datetimepicker'
+        },
+        'spinner': {                      
+            deps: ['jquery'],
+            exports: '$.fn.waitMe'
         },
         'underscore': {
             //These script dependencies should be loaded before loading
@@ -129,15 +133,15 @@ require(['jquery'],
         shim.log('I','main.require.jquery.loaded establish mobileinit action');
                 
             // and launch the framework...
-            require(['bootstrap', 'moment', 'datetimepicker', 'opendatakit', 'database','parsequery',
+            require(['bootstrap', 'moment', 'datetimepicker', 'spinner', 'opendatakit', 'database','parsequery',
                             'builder', 'controller', 'd3', 'jqueryCsv'], 
-            function( bootstrap,   moment,   datetimepicker,   opendatakit,   database,  parsequery,
-                             builder,   controller, d3, jqueryCsv) {
+            function( bootstrap,   moment,   datetimepicker,   spinner,   opendatakit,   database,  parsequery,
+                             builder,   controller,   d3,   jqueryCsv) {
                 verifyLoad('main.require.framework.loaded',
-                    ['bootstrap', 'moment', 'datetimepicker', 'opendatakit', 'database','parsequery',
+                    ['bootstrap', 'moment', 'datetimepicker', 'spinner', 'opendatakit', 'database','parsequery',
                             'builder', 'controller', 'd3', 'jqueryCsv'],
-                    [ bootstrap,   moment,   datetimepicker,   opendatakit,   database,  parsequery,
-                             builder,   controller, d3, jqueryCsv]);
+                    [ bootstrap,   moment,   datetimepicker,   spinner,   opendatakit,   database,  parsequery,
+                             builder,   controller,   d3,   jqueryCsv]);
 
                 
                 // define a function that waits until jquery mobile is initialized

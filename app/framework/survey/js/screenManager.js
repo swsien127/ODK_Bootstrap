@@ -9,14 +9,14 @@
 *    Displays pop-up dialogs and toasts.
 *    Displays the options dialog for changing languages and navigations.
 */
-define(['opendatakit','backbone','jquery','handlebars','screenTypes','text!templates/screenPopup.handlebars', 'text!templates/confirmationPopup.handlebars',
+define(['opendatakit','backbone','jquery', 'spinner', 'handlebars','screenTypes','text!templates/screenPopup.handlebars', 'text!templates/confirmationPopup.handlebars',
     'text!templates/optionsPopup.handlebars', 'text!templates/languagePopup.handlebars', 'handlebarsHelpers', 'translations'], 
-function(opendatakit,  Backbone,  $,       Handlebars,  screenTypes,  screenPopup, confirmationPopup,
+function(opendatakit,  Backbone,  $,        spinner,   Handlebars,  screenTypes,  screenPopup, confirmationPopup,
      optionsPopup,                             languagePopup, _hh, translations) {
 verifyLoad('screenManager',
-    ['opendatakit','backbone','jquery','handlebars','screenTypes','text!templates/screenPopup.handlebars', 'text!templates/confirmationPopup.handlebars',
+    ['opendatakit','backbone','jquery','spinner','handlebars','screenTypes','text!templates/screenPopup.handlebars', 'text!templates/confirmationPopup.handlebars',
     'text!templates/optionsPopup.handlebars', 'text!templates/languagePopup.handlebars' , 'handlebarsHelpers', 'translations'],
-    [opendatakit,  Backbone,  $,       Handlebars,  screenTypes,  screenPopup, confirmationPopup,
+    [opendatakit,  Backbone,  $,        spinner,  Handlebars,  screenTypes,  screenPopup, confirmationPopup,
      optionsPopup,                             languagePopup, _hh, translations]);
 
 return Backbone.View.extend({
@@ -504,9 +504,18 @@ return Backbone.View.extend({
             // text: msg.text,
             // textVisible: true
         // });
+        $('body').waitMe({
+			effect: 'roundBounce',
+			text: 'Loading ...',
+			bg: 'rgba(255,255,255,0.7)',
+			color:'#000',
+			sizeW:'',
+			sizeH:''
+		});
     },
     hideSpinnerOverlay: function() {
         // window.$.mobile.loading( 'hide' );
+        $('body').waitMe('hide');
     },
     removePreviousPageEl: function() {
         if( this.previousPageEl){
