@@ -1,18 +1,19 @@
-<div class="modal" id="myModal" tabindex="-1" role="dialog" 
-   aria-labelledby="confirmationLabel" aria-hidden="true">
+<div class="modal" id="confirmationPopup" tabindex="-1" role="dialog" 
+        aria-labelledby="confirmationLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">{{{localize message}}}</h3>
+            <div class="modal-body">
+                <p>{{{localize message}}}</p>
             </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-default" id="yes-btn"
-                data-dismiss="modal">YES
-            </button>
-            <button type="button" class="btn btn-default" id="no-btn">
-                NO
-            </button>
-        </div>
-    </div><!-- /.modal-content -->
+        
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="yes-btn"
+                    data-dismiss="modal">YES
+                </button>
+                <button type="button" class="btn btn-default" id="no-btn"
+                    data-dismiss="modal">NO
+                </button>
+            </div>
+        </div><!-- .modal-content -->
+    </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->  

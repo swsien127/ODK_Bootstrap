@@ -514,7 +514,7 @@ return Backbone.View.extend({
 		});
     },
     hideSpinnerOverlay: function() {
-        // window.$.mobile.loading( 'hide' );
+        //window.$.mobile.loading( 'hide' );
         $('body').waitMe('hide');
     },
     removePreviousPageEl: function() {
