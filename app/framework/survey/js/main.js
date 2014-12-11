@@ -17,7 +17,7 @@ requirejs.config({
         // third-party libraries we depend upon 
         jquery : 'libs/jquery.1.10.2',
         bootstrap : 'libs/bootstrap-3.1.1-dist/js/bootstrap.min',
-        moment : 'libs/eonasdan/moment.min',     
+        moment : 'libs/eonasdan/moment',     
         datetimepicker : 'libs/eonasdan/bootstrap-datetimepicker',
         spinner : 'libs/spinner/waitMe.min',
         backbone : 'libs/backbone.1.0.0',

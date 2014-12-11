@@ -736,10 +736,10 @@ promptTypes.linked_table = promptTypes._linked_type.extend({
                     }
                     
                     if (instanceList[i]["savepoint_type"] == "COMPLETE"){
-                        instanceList[i]["icon_class"] = "ui-icon-check";
+                        instanceList[i]["icon_class"] = "glyphicon-ok";
                     }  
                     else{
-                        instanceList[i]["icon_class"] = "ui-icon-alert";
+                        instanceList[i]["icon_class"] = "glyphicon-warning-sign";
                     }
                     //make the date more readable
                     instanceList[i]["savepoint_timestamp"] = opendatakit.getShortDateFormat(instanceList[i]["savepoint_timestamp"]);          
@@ -1654,7 +1654,7 @@ promptTypes.datetime = promptTypes.input_type.extend({
                 that.$('input').mobiscroll('setDate',value, true); 
             }
             that.insideAfterRender = false; */
-            that.$('input').datetimepicker();
+            that.$('input').datetimepicker({useCurrent: false});
             var value = that.getValue();      
             that.insideAfterRender = true;
             if ( value === undefined || value === null ) {
@@ -1675,7 +1675,7 @@ promptTypes.date = promptTypes.datetime.extend({
     afterRender: function() {
         var that = this;
         if(this.usePicker){
-            that.$('input').datetimepicker({pickTime: false});
+            that.$('input').datetimepicker({pickTime: false, useCurrent: false});
             var value = that.getValue();
             that.insideAfterRender = true;
             if ( value === undefined || value === null ) {

@@ -466,9 +466,10 @@ return Backbone.View.extend({
         //var $screenPopup = $( "#screenPopup" );
         //$('#screenPopup').enhanceWithin().popup();  // calling the popup plugin
         //$screenPopup.popup( "open" );       // opening the popup
+        $('#screenPopup').modal();
     },
     closeScreenPopup: function() {
-        $( "#screenPopup" ).alert( 'close' );   // closing the popup
+        $( "#screenPopup" ).modal( "hide" );   // closing the popup
     },
     showConfirmationPopup: function(msg) {
         var that = this;

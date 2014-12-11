@@ -1,5 +1,5 @@
 {{#if passiveError}}
-    <div class="ui-bar ui-bar-a">
+    <div>
         {{passiveError}}
     </div>
 {{/if}}
@@ -12,7 +12,7 @@
         {{/eachProperty}}>
 
         {{#each choices}}
-                <label class="btn btn-default btn-lg" style="width:100%;margin:0;border-radius:0"
+                <label class="btn btn-default btn-lg select-label" 
                     {{#unless checked}}
                         {{#if display.fontColor.default}}
                             {{#if display.backgroundColor.default}}
@@ -47,7 +47,7 @@
                         {{/if}}
                     {{/unless}}>
                     
-                    <input style="transform:scale(2); -webkit-transform:scale(1.5);width:auto;float:left"
+                    <input class="select-input"
                         {{#if ../select_one}}
                             type="radio"
                         {{else}}
@@ -68,14 +68,14 @@
                     </div>
                 {{/if}}
                 {{#if display.text}}
-                    <span style="float:left;margin-left:10px">{{{localize display.text}}}</span>
+                    <span class="select-text">{{{localize display.text}}}</span>
                 {{/if}}
                 </label>
             
         {{/each}}
         {{#if withOther}}
-            <label class="btn btn-default btn-lg" style="width:100%;margin:0;border-radius:0">
-                <input style="transform:scale(2); -webkit-transform:scale(1.5);width:auto;float:left"
+            <label class="btn btn-default btn-lg select-label">
+                <input class="select-input"
                     {{#if select_one}}
                         type="radio"
                     {{else}}
@@ -88,12 +88,11 @@
                     id="other"
                     value="other"/>
                     <label for="other" style="float:left">
-                        <span style="float:left;margin-left:10px">Other:</span>
+                        <span class="select-text">Other:</span>
                         {{#if other.checked}}
-                        <input
+                        <input class="input-other"
                             name="otherValue"
-                            value="{{other.value}}"
-                            style="height:36px;position:initial;"/>
+                            value="{{other.value}}"/>
                         {{/if}}
                     </label>
             </label>

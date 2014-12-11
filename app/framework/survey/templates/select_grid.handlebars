@@ -1,5 +1,5 @@
 {{#if passiveError}}
-    <div class="ui-bar ui-bar-a">
+    <div>
         {{passiveError}}
     </div>
 {{/if}}
@@ -18,30 +18,29 @@
                         style="background-color:white;"
                     {{/if}}>
                 
-                    <input
-                        {{#if ../select_one}}
-                            type="radio"
-                        {{else}}
-                            type="checkbox"
+                        <input
+                            {{#if ../select_one}}
+                                type="radio"
+                            {{else}}
+                                type="checkbox"
+                            {{/if}}
+                            {{#if checked}}
+                                checked="checked"
+                            {{/if}}
+                                
+                            {{! the name attribute has to be the same for all the options}}
+                            name="{{../name}}"
+                            id="{{data_value}}"
+                            value="{{data_value}}" />
+                        {{#if display.image}}
+                            <center>
+                                <img src="{{formDirectory}}{{localize display.image}}"></img>
+                            </center>
                         {{/if}}
-                        {{#if checked}}
-                            checked="checked"
+                        {{#if display.text}}
+                            {{{localize display.text}}}
                         {{/if}}
-                            
-                        {{! the name attribute has to be the same for all the options}}
-                        style="display:none;"
-                        name="{{../name}}"
-                        id="{{data_value}}"
-                        value="{{data_value}}" />
-                {{#if display.image}}
-                    <center>
-                        <img style="max-width: 100%;max-height: 100%;" src="{{formDirectory}}{{localize display.image}}"></img>
-                    </center>
-                {{/if}}
-                {{#if display.text}}
-                    {{{localize display.text}}}
-                {{/if}}
-                </td>
+                    </td>
             {{#if isLastInRow}}
                 </tr><!-- row -->
             {{/if}}

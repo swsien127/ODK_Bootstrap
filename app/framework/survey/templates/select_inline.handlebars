@@ -1,5 +1,5 @@
 {{#if passiveError}}
-    <div class="ui-bar ui-bar-a">
+    <div>
         {{passiveError}}
     </div>
 {{/if}}
@@ -7,8 +7,7 @@
 	<div class="inline-label-container">
         {{> labelHint}}
     </div>
-    <fieldset
-        style="float:right;margin-left:1em;display:block;"
+    <fieldset class="inline-fieldset"
         {{#eachProperty inputAttributes}}
             {{property}}="{{value}}"
         {{/eachProperty}}
